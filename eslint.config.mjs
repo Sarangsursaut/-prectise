@@ -1,9 +1,29 @@
 // @ts-check
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier';
 
-// Provide a JS-specific config so TypeScript type-checked rules are not
-// applied to plain JavaScript files (e.g. commitlint.config.js).
+// =====================
+// Base ignores
+// =====================
+const baseIgnore = {
+  ignores: [
+    '*.config.js',
+    '*.config.cjs',
+    '*.mjs',
+    'ecosystem.config.js',
+    'commitlint.config.js',
+    'eslint.config.mjs',
+    'node_modules/**',
+    'dist/**',
+    'build/**',
+    'logs/**'
+  ]
+};
+
+// =====================
+// JavaScript config
+// =====================
 const jsConfig = {
   files: ['**/*.js', '**/*.cjs', '**/*.mjs'],
   languageOptions: {
@@ -13,12 +33,14 @@ const jsConfig = {
   },
   ...eslint.configs.recommended,
   rules: {
-    // keep console rule consistent for JS files too
     'no-console': 'error',
     quotes: ['error', 'single', { allowTemplateLiterals: true }]
   }
 };
 
+// =====================
+// TypeScript config (type-checked)
+// =====================
 const tsConfig = tseslint.config(
   {
     files: ['**/*.ts'],
@@ -39,23 +61,17 @@ const tsConfig = tseslint.config(
   }
 );
 
-// Ensure every config returned by tseslint is scoped to TypeScript files so
-// type-checked rules are not applied to non-TS files.
-const tsConfigScoped = tsConfig.map((cfg) => (cfg.files ? cfg : { ...cfg, files: ['**/*.ts'] }));
+// Ensure TS rules never apply to JS
+const tsConfigScoped = tsConfig.map((cfg) =>
+  cfg.files ? cfg : { ...cfg, files: ['**/*.ts'] }
+);
 
-// Top-level ignores (preferred over .eslintignore in the flat config world)
-const baseIgnore = {
-  ignores: [
-    '*.config.js',
-    '*.config.cjs',
-    '*.mjs',
-    'ecosystem.config.js',
-    'commitlint.config.js',
-    'eslint.config.mjs',
-    'node_modules/**',
-    'dist/**',
-    'build/**',
-    'logs/**'
-  ]
-};
-export default [baseIgnore, jsConfig, ...tsConfigScoped];
+// =====================
+// Export FINAL config
+// =====================
+export default [
+  baseIgnore,
+  jsConfig,
+  ...tsConfigScoped,
+  eslintConfigPrettier // ✅ THIS FIXES PRETTIER CONFLICTS
+];

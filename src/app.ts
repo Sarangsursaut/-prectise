@@ -1,0 +1,1 @@
+// console.log("testing Prettier and Husky setup");
