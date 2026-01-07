@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "dist": "npx tsc",
-     "test": "echo \"No tests yet\" && exit 0",
     "dev": "nodemon src/index.ts",
     "start": "node dist/index.js",
     "prepare": "husky"
