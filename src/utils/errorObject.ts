@@ -1,19 +1,40 @@
-import { Request, Response } from "express";
-import { ThttpError } from "../types/type";
-import responseMessage from "../constant/responseMessage";
+import { Request, Response } from 'express'
+import { ThttpError } from '../types/type'
 
-export default (err:Error|unknown, req:Request,res:Response,errorStatusCode:number=500):ThttpError=>{ 
-    const errorObject:ThttpError = {
-        success:false,
-        statusCode:errorStatusCode,
-        request:{
-            ip:req.ip || null,
-            method:req.method,
-            url:req?.originalUrl
-        },
-        Message:err instanceof Error ? err.message || responseMessage.SOMETHING_WENT_WRONG : responseMessage.SOMETHING_WENT_WRONG,
-        data:null,
-        trace: err instanceof Error ? (error:err.stack) : null
+// Extend the Express Response type to include errorObject
+declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace Express {
+        interface Response {
+            errorObject?: ThttpError
+        }
     }
-    res.errorObject  
 }
+
+// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+const createErrorObject = (err: Error | unknown, req: Request, res: Response, errorStatusCode: number = 500): ThttpError => {
+    const errorObject: ThttpError = {
+        success: false,
+        statusCode: errorStatusCode,
+        request: {
+            ip: req.ip || null,
+            method: req.method,
+            url: req.originalUrl,
+        },
+        Message: err instanceof Error ? err.message || 'Something went wrong' : 'Something went wrong',
+        data: null,
+        trace:
+            process.env.NODE_ENV === 'development' && err instanceof Error
+                ? {
+                      message: err.message,
+                      ...(err.stack && { stack: err.stack }),
+                  }
+                : null,
+    }
+
+    // Assign the error object to the response
+    res.errorObject = errorObject
+    return errorObject
+}
+
+export default createErrorObject
