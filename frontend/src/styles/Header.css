@@ -1,39 +1,135 @@
 /* Header Styles */
-@reference "tailwindcss";
 .header {
-  @apply sticky top-0 z-50 backdrop-blur-sm bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-700;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 1.5rem 1.5rem;
+  backdrop-filter: blur(10px);
+  background: rgba(15, 15, 30, 0.7);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.1);
 }
 
 .header-content {
-  @apply flex items-center justify-between py-4;
+  max-width: 80rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo h1 {
-  @apply text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.875rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #fff 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .nav {
-  @apply hidden md:flex gap-8;
+  display: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .nav {
+    display: flex;
+  }
 }
 
 .nav button {
-  @apply font-medium hover:text-blue-500 transition-colors;
+  color: #9ca3af;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.nav button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 0.125rem;
+  background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+  transition: width 0.3s ease;
+}
+
+.nav button:hover {
+  color: white;
+}
+
+.nav button:hover::after {
+  width: 100%;
+}
+
+.nav button.active {
+  color: #c084fc;
+}
+
+.nav button.active::after {
+  width: 100%;
 }
 
 .menu-toggle {
-  @apply md:hidden text-2xl bg-none border-none cursor-pointer;
-}
-
-.nav.open {
-  @apply flex flex-col absolute top-16 left-0 right-0 bg-white dark:bg-gray-800 gap-4 p-4;
-}
-
-.theme-toggle {
-  @apply text-2xl bg-none border-none cursor-pointer;
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: white;
 }
 
 @media (max-width: 768px) {
-  .nav button {
-    @apply block w-full text-left py-2;
+  .menu-toggle {
+    display: block;
   }
+}
+
+.nav.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 5rem;
+  left: 0;
+  right: 0;
+  gap: 1rem;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  background: rgba(15, 15, 30, 0.95);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.nav.open button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.nav.open button:hover {
+  background: rgba(139, 92, 246, 0.2);
+}
+
+.theme-toggle {
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  color: #e0e0e0;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: rgba(139, 92, 246, 0.2);
+  border-color: rgba(139, 92, 246, 0.6);
 }
