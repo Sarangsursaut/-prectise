@@ -1,0 +1,43 @@
+/* Hero Section */
+@reference "tailwindcss";
+.hero {
+  @apply min-h-screen flex items-center;
+}
+
+.hero .container {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-12 items-center;
+}
+
+.hero-title {
+  @apply text-5xl md:text-6xl font-bold mb-4;
+}
+
+.hero-subtitle {
+  @apply text-xl md:text-2xl text-blue-500 font-semibold mb-4;
+}
+
+.hero-description {
+  @apply text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed;
+}
+
+.hero-cta {
+  @apply flex flex-col sm:flex-row gap-4;
+}
+
+.avatar {
+  @apply flex justify-center;
+}
+
+.avatar-placeholder {
+  @apply w-48 h-48 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-5xl font-bold text-white;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    @apply text-4xl;
+  }
+
+  .hero-subtitle {
+    @apply text-lg;
+  }
+}

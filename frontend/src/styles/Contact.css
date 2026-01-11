@@ -1,0 +1,48 @@
+/* Contact Section */
+@reference "tailwindcss";
+.contact {
+  @apply bg-white dark:bg-gray-900;
+}
+
+.contact-content {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-12;
+}
+
+.contact-info h3 {
+  @apply text-2xl font-bold mb-4;
+}
+
+.contact-info p {
+  @apply text-gray-600 dark:text-gray-300 mb-8 leading-relaxed;
+}
+
+.contact-links {
+  @apply flex flex-col gap-4;
+}
+
+.contact-link {
+  @apply text-blue-500 hover:text-blue-700 font-semibold transition-colors;
+}
+
+.contact-form {
+  @apply space-y-6;
+}
+
+.form-group {
+  @apply flex flex-col;
+}
+
+.form-group input,
+.form-group textarea {
+  @apply w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg focus:border-blue-500 focus:outline-none bg-white dark:bg-gray-800 text-gray-900 dark:text-white;
+}
+
+.success-message {
+  @apply text-green-600 dark:text-green-400 font-semibold mt-4;
+}
+
+@media (max-width: 768px) {
+  .contact-content {
+    @apply grid-cols-1;
+  }
+}

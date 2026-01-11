@@ -1,0 +1,17 @@
+/* Footer */
+@reference "tailwindcss";
+.footer {
+  @apply bg-gray-900 text-white py-8 border-t border-gray-800;
+}
+
+.footer-content {
+  @apply flex flex-col md:flex-row items-center justify-between gap-4;
+}
+
+.footer-links {
+  @apply flex gap-6;
+}
+
+.footer-links a {
+  @apply text-gray-300 hover:text-white transition-colors;
+}

@@ -1,0 +1,39 @@
+/* Header Styles */
+@reference "tailwindcss";
+.header {
+  @apply sticky top-0 z-50 backdrop-blur-sm bg-white/80 dark:bg-gray-900/80 border-b border-gray-200 dark:border-gray-700;
+}
+
+.header-content {
+  @apply flex items-center justify-between py-4;
+}
+
+.logo h1 {
+  @apply text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent;
+}
+
+.nav {
+  @apply hidden md:flex gap-8;
+}
+
+.nav button {
+  @apply font-medium hover:text-blue-500 transition-colors;
+}
+
+.menu-toggle {
+  @apply md:hidden text-2xl bg-none border-none cursor-pointer;
+}
+
+.nav.open {
+  @apply flex flex-col absolute top-16 left-0 right-0 bg-white dark:bg-gray-800 gap-4 p-4;
+}
+
+.theme-toggle {
+  @apply text-2xl bg-none border-none cursor-pointer;
+}
+
+@media (max-width: 768px) {
+  .nav button {
+    @apply block w-full text-left py-2;
+  }
+}
