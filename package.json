@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
+    "build": "cd frontend && npm run build",
     "dist": "npx tsc",
     "dev": "cross-env NODE_ENV=development nodemon --watch src --ext ts --exec \"ts-node -r tsconfig-paths/register -r dotenv-flow/config src/server.ts\"",
     "start": "cross-env NODE_ENV=production node dist/server.js",
